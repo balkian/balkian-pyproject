@@ -1,0 +1,5 @@
+{% raw %}
+from python:{{PYVERSION}}-onbuild
+
+RUN pip install .
+{% endraw %}
