@@ -26,9 +26,10 @@ setup(
     description='''{{cookiecutter.project_short_description}}''',
     author='{{cookiecutter.full_name}}',
     author_email='{{cookiecutter.email}}',
-    url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}',  # use the URL to the github repo
-    download_url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}/archive/{}.tar.gz'.format(
-        __version__),
+    # use the URL to the github repo
+    url='https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}',
+    download_url=('https://github.com/{{ cookiecutter.github_username }}/{{ cookiecutter.repo_name }}'
+                  '/archive/{}.tar.gz'.format(__version__)),
     package_dir={'{{ cookiecutter.repo_name }}': '{{ cookiecutter.repo_name }}'},
     keywords='{{ cookiecutter.repo_name }}',
     install_requires=install_reqs,
@@ -46,5 +47,5 @@ setup(
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4'
-],
+    ],
 )
