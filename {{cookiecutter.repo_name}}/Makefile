@@ -3,7 +3,7 @@ PYMAIN=$(firstword $(PYVERSIONS))
 NAME={{ cookiecutter.repo_name }}
 REPO={{ cookiecutter.github_username }}
 VERSION=$(shell cat $(NAME)/VERSION)
-
+TARNAME=$(NAME)-$(subst -,.,$(VERSION)).tar.gz 
 
 {% raw %}
 all: build run
@@ -43,13 +43,13 @@ debug: debug-$(PYMAIN)
 test-%: build-%
 	docker run --rm -w /usr/src/app/ --entrypoint=/usr/local/bin/python -ti '$(REPO)/$(NAME):$(VERSION)-python$*' setup.py test --addopts "-vvv -s" ;
 
-dist/$(NAME)-$(VERSION).tar.gz:
+dist/$(TARNAME):
 	docker run --rm -ti -v $$PWD:/usr/src/app/ -w /usr/src/app/ python:$(PYMAIN) python setup.py sdist;
 
-sdist: dist/$(NAME)-$(VERSION).tar.gz
+sdist: dist/$(TARNAME)
 
 pip_test-%: sdist
-	docker run --rm -v $$PWD/dist:/dist/ -ti python:$* pip install /dist/$(NAME)-$(VERSION).tar.gz ;
+	docker run --rm -v $$PWD/dist:/dist/ -ti python:$* pip install /dist/$(TARNAME) ;
 
 pip_test: $(addprefix pip_test-,$(PYVERSIONS))
 
